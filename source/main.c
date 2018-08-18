@@ -21,32 +21,24 @@ int main(int argc, char **argv)
     consoleInit(NULL);
 
 
-    printf("Hello World!\n");
-    gfxFlushBuffers();
-    gfxSwapBuffers();
-    gfxWaitForVsync();
-
     int ParamCount = 1;
     int DontRunMain = FALSE;
     int StackSize = getenv("STACKSIZE") ? atoi(getenv("STACKSIZE")) : PICOC_STACK_SIZE;
     Picoc pc;
-    
+
     PicocInitialise(&pc, StackSize);
 
-    if (PicocPlatformSetExitPoint(&pc))
+    // If picoc fails it will jump here and the check will go through.
+    if (!PicocPlatformSetExitPoint(&pc))
     {
-        PicocCleanup(&pc);
-        return pc.PicocExitValue;
-    }
-    
-    PicocPlatformScanFile(&pc, "/test.c");
-    
-    if (!DontRunMain)
+        PicocPlatformScanFile(&pc, "/test.c");
         PicocCallMain(&pc, 0, 0);
-    
+    }
+
     PicocCleanup(&pc);
 
-    while(appletMainLoop()) {
+    while (appletMainLoop())
+    {
         gfxFlushBuffers();
         gfxSwapBuffers();
         gfxWaitForVsync();
