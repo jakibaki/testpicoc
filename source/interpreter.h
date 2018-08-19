@@ -6,6 +6,7 @@
 #define INTERPRETER_H
 
 #include "platform.h"
+#include "cstdlib/netcheat.h"
 
 
 /* handy definitions */
@@ -203,6 +204,7 @@ union AnyValue
     unsigned int UnsignedInteger;
     unsigned long UnsignedLongInteger;
     unsigned char UnsignedCharacter;
+    memRegion MemoryRegion;
     char *Identifier;
     char ArrayMem[2];               /* placeholder for where the data starts, doesn't point to it */
     struct ValueType *Typ;
