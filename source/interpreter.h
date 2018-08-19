@@ -650,9 +650,9 @@ extern const char StdboolDefs[];
 void StdboolSetupFunc(Picoc *pc);
 
 /* unistd.c */
-/*extern const char UnistdDefs[];
+extern const char UnistdDefs[];
 extern struct LibraryFunction UnistdFunctions[];
-void UnistdSetupFunc(Picoc *pc);*/
+void UnistdSetupFunc(Picoc *pc);
 
 /* netcheat.c */
 extern const char NetcheatDefs[];

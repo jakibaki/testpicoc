@@ -22,6 +22,7 @@ void IncludeInit(Picoc *pc)
     IncludeRegister(pc, "string.h", &StringSetupFunc, &StringFunctions[0], NULL);
     IncludeRegister(pc, "time.h", &StdTimeSetupFunc, &StdTimeFunctions[0], StdTimeDefs);
     IncludeRegister(pc, "netcheat.h", &NetcheatSetupFunc, &NetcheatFunctions[0], NetcheatDefs);
+    IncludeRegister(pc, "unistd.h", &UnistdSetupFunc, &UnistdFunctions[0], UnistdDefs);
 #endif
 }
 
