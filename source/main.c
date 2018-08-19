@@ -20,9 +20,6 @@ int main(int argc, char **argv)
     //Initialize console. Using NULL as the second argument tells the console library to use the internal console structure as current one.
     consoleInit(NULL);
 
-
-    int ParamCount = 1;
-    int DontRunMain = FALSE;
     int StackSize = getenv("STACKSIZE") ? atoi(getenv("STACKSIZE")) : PICOC_STACK_SIZE;
     Picoc pc;
 
