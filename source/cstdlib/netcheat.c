@@ -7,7 +7,7 @@
 
 void NetcheatSleepMS(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs)
 {
-    ReturnValue->Val->FP = svcSleepThread(1000000L * Param[0]->Val->Integer);
+    ReturnValue->Val->UnsignedInteger = svcSleepThread(1000000L * Param[0]->Val->Integer);
 }
 
 const char NetcheatDefs[] = "\
@@ -19,7 +19,7 @@ typedef unsigned long u64; \
 
 struct LibraryFunction NetcheatFunctions[] =
 {
-    { NetcheatSleepMS,         "unsigned int sleepMS(int);" },
+    { NetcheatSleepMS,         "u32 sleepMS(int);" },
     { NULL,             NULL }
 };
 
