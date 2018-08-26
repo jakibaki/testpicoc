@@ -630,8 +630,11 @@ enum LexToken LexGetRawToken(struct ParseState *Parser, struct Value **Value, in
     char *Prompt = NULL;
     Picoc *pc = Parser->pc;
     
+    unsigned int counter = 0;
+
     do
     { 
+
         /* get the next token */
         if (Parser->Pos == NULL && pc->InteractiveHead != NULL)
             Parser->Pos = pc->InteractiveHead->Tokens;

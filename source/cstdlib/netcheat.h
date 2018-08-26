@@ -1,7 +1,10 @@
 #include <switch.h>
 
-typedef struct {
-MemoryType memType;
-u64 address;
-u64 size;
-} memRegion;
+typedef struct
+{
+    MemoryType memType;
+    void* address;
+    u64 size;
+} MemRegion;
+
+Semaphore testSem;

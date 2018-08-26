@@ -93,9 +93,20 @@ int DebugClearBreakpoint(struct ParseState *Parser)
     return FALSE;
 }
 
+int inst = 0;
+
 /* before we run a statement, check if there's anything we have to do with the debugger here */
 void DebugCheckStatement(struct ParseState *Parser)
 {
+    // netcheat todo: use this for checking if have to break
+    // todo: check on console how expensive semaphoreTryWait is.
+
+    if(++inst == 100) {
+        //semaphoreTryWait(&testSem);
+        //PlatformExit(Parser->pc, 1);
+        inst = 0;
+    }
+
     int DoBreak = FALSE;
     int AddAt;
     Picoc *pc = Parser->pc;

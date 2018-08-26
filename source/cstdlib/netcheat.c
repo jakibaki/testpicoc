@@ -10,11 +10,9 @@ void NetcheatSleepMS(struct ParseState *Parser, struct Value *ReturnValue, struc
     ReturnValue->Val->UnsignedInteger = svcSleepThread(1000000L * Param[0]->Val->Integer);
 }
 
-void NetcheatTestFunc(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs)
+void NetcheatSvcGetSystemTick(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs)
 {
-    printf("%lx\n", Param[0]->Val->MemoryRegion.address);
-    printf("%lx\n", Param[0]->Val->MemoryRegion.size);
-    printf("%x\n", Param[0]->Val->MemoryRegion.memType);
+    ReturnValue->Val->UnsignedLongInteger = svcGetSystemTick();
 }
 
 
@@ -48,16 +46,16 @@ typedef enum {\
     MemType_CodeWritable=0x15\
 } MemoryType;\
 typedef struct {\
-MemoryType memType;\
-u64 address;\
-u64 size;\
-}memRegion;\
+    MemoryType memType;\
+    void* address;\
+    u64 size;\
+} MemRegion;\
 ";
 
 struct LibraryFunction NetcheatFunctions[] =
 {
     {NetcheatSleepMS, "u32 sleepMS(int);"},
-    {NetcheatTestFunc, "void testFunc(memRegion);"},
+    {NetcheatSvcGetSystemTick, "u64 svcGetSystemTick();"},
     {NULL, NULL}
 };
 

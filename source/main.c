@@ -15,29 +15,38 @@
 
 int main(int argc, char **argv)
 {
+    semaphoreInit(&testSem, 0);
     gfxInitDefault();
     consoleInit(NULL);
 
     Picoc pc;
 
-    PicocInitialise(&pc, PICOC_STACK_SIZE);
+    while(1) {    
+        PicocInitialise(&pc, PICOC_STACK_SIZE);
 
-    // If picoc fails it will jump here and the check will go through.
-    if (!PicocPlatformSetExitPoint(&pc))
-    {
-        PicocPlatformScanFile(&pc, "/test.c");
-        PicocCallMain(&pc, 0, 0);
+        // If picoc fails it will jump here and the check will go through.
+        if (!PicocPlatformSetExitPoint(&pc))
+        {
+            PicocPlatformScanFile(&pc, "/test.c");
+            PicocCallMain(&pc, 0, 0);
+        }
+
+        PicocCleanup(&pc);
+
+        while (appletMainLoop())
+        {
+            hidScanInput();
+            u64 kDown = hidKeysDown(CONTROLLER_P1_AUTO);
+            if (kDown & KEY_A) {
+                consoleClear();
+                break;
+            }
+
+            gfxFlushBuffers();
+            gfxSwapBuffers();
+            gfxWaitForVsync();
+        }
     }
-
-    PicocCleanup(&pc);
-
-    while (appletMainLoop())
-    {
-        gfxFlushBuffers();
-        gfxSwapBuffers();
-        gfxWaitForVsync();
-    }
-
     gfxExit();
     return pc.PicocExitValue;
 }
